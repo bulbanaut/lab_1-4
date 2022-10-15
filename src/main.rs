@@ -1,34 +1,17 @@
-use std::{io::stdin, process::exit};
-
+use std::io::stdin;
 
 fn main() {
-    println!("Введите значение X, затем Y:");
-    let p = [read_var(), read_var()];
+    println!("Введите координаты точки (X, затем Y):");
+    let p: [f64; 2] = [read_var(), read_var()];
 
-    let a = [-4.0, 0.0];
-    let b = [0.0, 4.0];
-    let c = [4.0, 0.0];
-    //перемещаем треугольник точкой а в 0:0
-    let a = [a[0] - a[0], a[1] - a[1]];// можно было заменить на let a = [0,0], оставлено для наглядности
-    let b = [b[0] - a[0], b[1] - a[1]];
-    let c = [c[0] - a[0], c[1] - a[1]];
-    let p = [p[0] - a[0], p[1] - a[1]];
+    let rp: f64 = (p[0].powi(2) + p[1].powi(2)).sqrt();
 
-    let m: f64 = (p[0]*b[1] - b[0]*p[1]) / (c[0]*b[1] - b[0]*c[1]);//вычисляем мю
-    if m >= 0.0 && m <= 1.0 {
-        let l: f64 = ((p[0] - m*c[0])/ b[0]).into();
-        if l >= 0.0 && m + l <= 1.0 {
-            println!("True")
-        } else {
-            println!("False");
-            pause();
-            exit(0);
-        } 
-    }   else {
+    if rp >= 3.0 && rp <= 5.0 && p[0] >= 0.0 {
+        println!("True");
+    } else {
         println!("False");
-        pause();
-        exit(0);
     }
+    pause();
 }
 
 fn read_var() -> f64 {
